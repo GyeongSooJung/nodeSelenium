@@ -9,16 +9,14 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 // router
-import chwideukRouter from './routers/chwideuk'
-import sangsilRouter from './routers/sangsil'
+import oneRouter from './routers/one'
 
 const app = express();
 
 app.use(bodyParser.json())
 app.use(cookieParser())
 
-app.use('/chwideuk',chwideukRouter);
-app.use('/sangsil',sangsilRouter);
+app.use('/one',oneRouter);
 
 app.listen('8000', () => {
     console.log(`

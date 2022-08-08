@@ -43,8 +43,6 @@ export const httpLoggingMiddleware = (req: Request, res: Response, next: NextFun
                 logStr.query = req.query;
                 break;
         }
-        console.log("@@@")
-
         loggerHttp.info(JSON.stringify(logStr))
 
         next();

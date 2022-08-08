@@ -1,3 +1,5 @@
+export * from "./db/expireHandler"
+
 export * from "./selenium/alertHandler"
 export * from "./selenium/cookieHandler"
 export * from "./selenium/driverHandler"

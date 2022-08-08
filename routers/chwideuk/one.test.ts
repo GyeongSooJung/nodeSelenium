@@ -14,7 +14,7 @@ import {
  } from '../../config/winston';
 
 // node-json-db
-import { db } from '../../config/nodejsondb';
+// import { db } from '../../config/nodejsondb';
 
 import { 
     getDriverHandler,

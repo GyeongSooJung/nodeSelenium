@@ -1,9 +1,6 @@
 import express, { Request, Response, NextFunction } from 'express';
 var router = express.Router();
 
-// middlewares
-import { timeIntervalMiddleware,httpLoggingMiddleware } from '../../middlewares';
-
 // modules
 import { 
     getDriverHandler,
@@ -39,6 +36,12 @@ import {
 
  } from '../../modules';
 
+ // middlewares
+import { 
+    timeIntervalMiddleware,
+    httpLoggingMiddleware
+ } from '../../middlewares'
+
 // logger
 import {
     loggerInfo,
@@ -50,6 +53,9 @@ import {
 // node-json-db
 import { db } from '../../config/nodejsondb';
 import { By } from 'selenium-webdriver';
+
+// shortid
+import shortid from 'shortid'
 
 router.post('/',timeIntervalMiddleware,httpLoggingMiddleware, async function (req: Request, res: Response, next: NextFunction) {
     // 웹드라이버 설정
