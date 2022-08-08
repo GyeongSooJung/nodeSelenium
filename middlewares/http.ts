@@ -1,10 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
-const {   
+import {   
     loggerInfo,
     loggerError,
     loggerHttp,
     loggerDebug,
- } = require('../config/winston');
+ } from '../config/winston'
 
 interface LOGSTR {
     url : string;
