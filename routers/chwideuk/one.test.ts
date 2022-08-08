@@ -6,7 +6,12 @@ dotenv.config();
 import { By, until, WebDriver } from 'selenium-webdriver';
 
 // logger
-import { logger } from '../../config/winston';
+import {   
+    loggerInfo,
+    loggerError,
+    loggerHttp,
+    loggerDebug,
+ } from '../../config/winston';
 
 // node-json-db
 import { db } from '../../config/nodejsondb';
@@ -26,7 +31,13 @@ import {
 
     fileRegister,
 
-    JqueryChangeValueByID,
+    findElementById,
+    findElementByName,
+    findElementByXpath,
+
+
+    JqChangeValueByID,
+    JqRemoveAttribute,
 
     naviGet,
     naviBack,
@@ -36,21 +47,6 @@ import {
     popupClose
 
  } from '../../modules';
-
- const getElementById = async (driver: WebDriver, id: string, timeout = 2000) => {
-    const el = await driver.wait(until.elementLocated(By.id(id)), timeout);
-    return await driver.wait(until.elementIsVisible(el), timeout);
-  };
-  
-  const getElementByName = async (driver: WebDriver, name: string, timeout = 2000) => {
-    const el = await driver.wait(until.elementLocated(By.name(name)), timeout);
-    return await driver.wait(until.elementIsVisible(el), timeout);
-  };
-  
-  const getElementByXpath = async (driver: WebDriver, xpath: string, timeout = 2000) => {
-    const el = await driver.wait(until.elementLocated(By.xpath(xpath)), timeout);
-    return await driver.wait(until.elementIsVisible(el), timeout);
-  };
   
 
  describe('GET /one', () => {
@@ -78,7 +74,7 @@ import {
         }
         catch(Err) {
             console.log(Err)
-            logger.debug(Err)
+            loggerDebug.info(Err)
             throw Error;
         }
     })

@@ -9,19 +9,21 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 // router
-import oneRouter from './routers/one'
+import chwideukRouter from './routers/chwideuk'
+import sangsilRouter from './routers/sangsil'
 
 const app = express();
 
 app.use(bodyParser.json())
 app.use(cookieParser())
 
-app.use('/one',oneRouter)
+app.use('/chwideuk',chwideukRouter);
+app.use('/sangsil',sangsilRouter);
 
-app.listen('1234', () => {
+app.listen('8000', () => {
     console.log(`
   ################################################
-  🛡️  Server listening on port: 1234🛡️
+  🛡️  Server listening on port: 8000
   ################################################
 `);
 });

@@ -1,6 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
 
-const { logger } = require('../config/winston');
+const {   
+    loggerInfo,
+    loggerError,
+    loggerHttp,
+    loggerDebug,
+ } = require('../config/winston');
 
 // node-json-db
 import { db } from '../config/nodejsondb';
@@ -36,7 +41,7 @@ export const timeIntervalMiddleware = (req: Request, res: Response, next: NextFu
     }
     catch (Err) {
         console.log(Err)
-        logger.error(Err)
+        loggerError.info(Err)
         res.send({ success: false, result: "timeInterverError" });
     }
 }

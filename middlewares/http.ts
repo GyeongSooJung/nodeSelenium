@@ -1,5 +1,10 @@
 import express, { Request, Response, NextFunction } from 'express';
-const { logger } = require('../config/winston');
+const {   
+    loggerInfo,
+    loggerError,
+    loggerHttp,
+    loggerDebug,
+ } = require('../config/winston');
 
 interface LOGSTR {
     url : string;
@@ -38,13 +43,14 @@ export const httpLoggingMiddleware = (req: Request, res: Response, next: NextFun
                 logStr.query = req.query;
                 break;
         }
+        console.log("@@@")
 
-        logger.http(JSON.stringify(logStr))
+        loggerHttp.info(JSON.stringify(logStr))
 
         next();
     }
     catch (Err) {
-        logger.error(Err)
+        loggerError.info(Err)
         res.send({ success: false });
     }
 }
