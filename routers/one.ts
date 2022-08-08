@@ -32,13 +32,13 @@ import {
 
     popupClose
 
- } from '../../modules';
+ } from '../modules';
 
 // middlewares
 import { 
     timeIntervalMiddleware,
     httpLoggingMiddleware
- } from '../../middlewares'
+ } from '../middlewares'
 
 // logger
 import {
@@ -46,10 +46,10 @@ import {
     loggerDebug,
     loggerError,
     loggerInfo 
-    } from '../../config/winston';
+    } from '../config/winston';
 
 // node-json-db
-import { db } from '../../config/nodejsondb';
+import { db } from '../config/nodejsondb';
 import { By } from 'selenium-webdriver';
 
 // shortid
@@ -74,11 +74,8 @@ router.get('/',timeIntervalMiddleware,httpLoggingMiddleware, async function (req
             result : text
         }
 
-        // 데이터베이스에 저장 (데이터)
-        db.push('/one/data[]', savedata);
-
-        // 데이터베이스에 저장 (최근 시간)
-        db.push('/one/lastdate', new Date())
+        // 데이터베이스에 저장 
+        db.push('/one[]', savedata);
 
         // log 저장
         loggerInfo.info(JSON.stringify(savedata))

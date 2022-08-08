@@ -34,13 +34,13 @@ import {
 
     sleep
 
- } from '../../modules';
+ } from '../modules';
 
  // middlewares
 import { 
     timeIntervalMiddleware,
     httpLoggingMiddleware
- } from '../../middlewares'
+ } from '../middlewares'
 
 // logger
 import {
@@ -48,10 +48,10 @@ import {
     loggerError,
     loggerHttp,
     loggerDebug,
- } from '../../config/winston';
+ } from '../config/winston';
 
 // node-json-db
-import { db } from '../../config/nodejsondb';
+import { db } from '../config/nodejsondb';
 import { By } from 'selenium-webdriver';
 
 // shortid

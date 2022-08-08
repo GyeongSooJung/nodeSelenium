@@ -14,7 +14,7 @@ export const expireHandler = async (dbPath: string) => {
         let index = 0; // 기준점이 되는 index
 
         // 데이터 매핑 및 시간 차이 계산해서 30분 지난 데이터는 삭제
-        await datalist.data.map(async (item : any, index2: number) => {
+        await datalist.map(async (item : any, index2: number) => {
             let beforeTime =  new Date(item.date); // 데이터들 저장된 시간
             let diff = (nowTime.getTime() - beforeTime.getTime()) / (1000*60); // 데이터들 시간 차이
             // 저장된 지 30분이 지나면 index 체크
