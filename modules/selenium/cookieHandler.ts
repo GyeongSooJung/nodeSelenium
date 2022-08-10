@@ -1,7 +1,7 @@
 import {  IWebDriverCookie, WebDriver } from "selenium-webdriver";
 
 // 쿠키 추가하기
-export const addCookie = async (driver : WebDriver, cookie : any ) => {
+export const addCookie = async (driver : WebDriver, cookie : IWebDriverCookie ) => {
     await driver.manage().addCookie(cookie)
 }
 

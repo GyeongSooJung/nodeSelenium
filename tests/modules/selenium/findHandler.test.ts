@@ -53,11 +53,11 @@ import {
     // 웹드라이버 설정
     let driver : WebDriver;
 
-    beforeAll(async () => {
+    beforeEach(async () => {
         driver = await getDriverHandler();
     })
 
-    afterAll(async () => {
+    afterEach(async () => {
         await driver.quit()
     })
 

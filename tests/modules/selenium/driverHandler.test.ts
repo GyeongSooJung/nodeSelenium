@@ -49,20 +49,22 @@ import {
  } from '../../../modules';
   
 
- describe('', () => {
+ describe('Module driverHandler', () => {
     // 웹드라이버 설정
     let driver : WebDriver;
 
-    beforeAll(async () => {
-        driver = await getDriverHandler();
+    beforeEach(async () => {
+        
     })
 
-    afterAll(async () => {
+    afterEach(async () => {
         await driver.quit()
     })
 
-    test('', async () => {
+    test('webdriver가 잘 반환되는지 테스트', async () => {
+        driver = await getDriverHandler();
 
+        expect(driver).toBeInstanceOf(WebDriver);
     })
 
 })
