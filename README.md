@@ -1,10 +1,8 @@
 # nodeJS Selenium Project
 
-------------
-
 ### 1. npm install 실행
 ```
-npm install
+$ npm install
 ```
 
 ------------
