@@ -25,7 +25,9 @@
     "winston": "^3.8.1",
     "winston-daily-rotate-file": "^4.7.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jsdom": "^20.0.0"
+  },
   "scripts": {
     "test": "jest",
     "start": "node dist/app.js",
