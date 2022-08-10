@@ -30,6 +30,8 @@ $ npm start
 ------------
 
 ## API
-/one
-/two
-/three
+| API | Method | Response | Request |
+| ------ | ------| -------- | ----------- |
+| /one | GET | {} | {} |
+| /two | GET | {} | {} |
+| /three | GET | {} | {} |
