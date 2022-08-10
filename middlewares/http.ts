@@ -13,7 +13,7 @@ interface LOGSTR {
     body? : Object;
 }
 
-export const httpLoggingMiddleware = (req: Request, res: Response, next: NextFunction) => {
+export const httpLoggingMiddleware = async (req: Request, res: Response, next: NextFunction) => {
 
     let logStr: LOGSTR = {
         url : "",

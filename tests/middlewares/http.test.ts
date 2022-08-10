@@ -5,14 +5,8 @@ import {
     loggerHttp,
     loggerDebug,
  } from '../../config/winston'
-import { httpLoggingMiddleware } from '../../middlewares';
 
-interface LOGSTR {
-    url : string;
-    method : string;
-    query? : Object;
-    body? : Object;
-}
+import { httpLoggingMiddleware } from '../../middlewares';
 
 describe('MiddleWare http', () => {
     let mockRequest : Partial<Request>;
@@ -20,7 +14,7 @@ describe('MiddleWare http', () => {
     let nextFunction: NextFunction = jest.fn();
 
     beforeEach(()=> {
-        mockRequest = {};
+        mockRequest = { originalUrl : '/one' };
         mockResponse = {
             json: jest.fn()
         };
@@ -28,7 +22,7 @@ describe('MiddleWare http', () => {
 
     test('http 로깅 미들웨어 테스트', async () => {
         try {
-            httpLoggingMiddleware(mockRequest as Request, mockResponse as Response, nextFunction);
+            await httpLoggingMiddleware(mockRequest as Request, mockResponse as Response, nextFunction);
             
             // nextFunction 까지 잘되는지 확인
             expect(nextFunction).toBeCalledTimes(1);
