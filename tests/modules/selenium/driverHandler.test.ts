@@ -7,45 +7,11 @@ import { By, until, WebDriver } from 'selenium-webdriver';
 
 // logger
 import {   
-    loggerInfo,
-    loggerError,
-    loggerHttp,
     loggerDebug,
  } from '../../../config/winston';
 
-// node-json-db
-// import { db } from '../../config/nodejsondb';
-
 import { 
     getDriverHandler,
-
-    alertCloseAccept,
-    alertCloseDismiss,
-    promptCloseHandler,
-
-    addCookie,
-    getOneCookie,
-    getAllCookie,
-    deleteOneCookie,
-    deleteAllCookie,
-
-    fileRegister,
-
-    findElementById,
-    findElementByName,
-    findElementByXpath,
-
-
-    JqChangeValueByID,
-    JqRemoveAttribute,
-
-    naviGet,
-    naviBack,
-    naviForward,
-    naviRefresh,
-
-    popupClose
-
  } from '../../../modules';
   
 
@@ -58,13 +24,17 @@ import {
     })
 
     afterEach(async () => {
-        await driver.quit()
+        await driver.close()
     })
 
     test('webdriver가 잘 반환되는지 테스트', async () => {
-        driver = await getDriverHandler();
-
-        expect(driver).toBeInstanceOf(WebDriver);
+        try {
+            driver = await getDriverHandler();
+            expect(driver).toBeInstanceOf(WebDriver);
+        }
+        catch(Err) {
+            loggerDebug.info(JSON.stringify(Err))
+        }
     })
 
 })

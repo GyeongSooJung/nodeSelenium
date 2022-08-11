@@ -7,46 +7,14 @@ import { By, until, WebDriver } from 'selenium-webdriver';
 
 // logger
 import {   
-    loggerInfo,
-    loggerError,
-    loggerHttp,
     loggerDebug,
- } from '../../../config/winston';
-
-// node-json-db
-// import { db } from '../../config/nodejsondb';
+} from '../../../config/winston';
 
 import { 
     getDriverHandler,
-
-    alertCloseAccept,
-    alertCloseDismiss,
-    promptCloseHandler,
-
-    addCookie,
-    getOneCookie,
-    getAllCookie,
-    deleteOneCookie,
-    deleteAllCookie,
-
-    fileRegister,
-
     findElementById,
-    findElementByName,
-    findElementByXpath,
 
-
-    JqChangeValueByID,
-    JqRemoveAttribute,
-
-    naviGet,
-    naviBack,
-    naviForward,
-    naviRefresh,
-
-    popupClose
-
- } from '../../../modules';
+} from '../../../modules';
 
  // window type 선언
 declare const window: typeof globalThis;
@@ -57,7 +25,7 @@ declare const window: typeof globalThis;
 
     beforeEach(async () => {
         driver = await getDriverHandler();
-        driver.get('https://testpages.herokuapp.com/styled/alerts/alert-test.html')
+        await driver.get('https://testpages.herokuapp.com/styled/alerts/alert-test.html')
     })
 
     afterEach(async () => {
@@ -86,7 +54,7 @@ declare const window: typeof globalThis;
             expect(alertText).toEqual('I am an alert box!');
         }
         catch(Err) {
-            loggerDebug.info(Err)
+            loggerDebug.info(JSON.stringify(Err))
         }
     })
 
@@ -113,7 +81,7 @@ declare const window: typeof globalThis;
 
         }
         catch(Err) {
-            loggerDebug.info(Err)
+            loggerDebug.info(JSON.stringify(Err))
         }
     })
 })

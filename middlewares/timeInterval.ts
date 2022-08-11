@@ -33,7 +33,7 @@ export const timeIntervalMiddleware = async (req: Request, res: Response, next: 
         else {
             // 현재 시간
             let nowTime = new Date()
-            let beforeTime = await (await db.getData(url + "[-1]")).date; // 제일 최신 데이터의 조회 시간
+            let beforeTime = new Date(await (await db.getData(url + "[-1]")).date); // 제일 최신 데이터의 조회 시간
             let diff = (nowTime.getTime() - beforeTime.getTime()) / (1000*60); // 분 으로 계산한다.
             // 전 시간과 비교하여 차이가 5분 미만일 때
             if (diff < 5) {

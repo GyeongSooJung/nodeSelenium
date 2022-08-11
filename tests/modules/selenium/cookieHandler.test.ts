@@ -7,44 +7,19 @@ import { By, until, WebDriver } from 'selenium-webdriver';
 
 // logger
 import {   
-    loggerInfo,
-    loggerError,
-    loggerHttp,
     loggerDebug,
- } from '../../../config/winston';
-
-// node-json-db
-// import { db } from '../../config/nodejsondb';
+} from '../../../config/winston';
 
 import { 
     getDriverHandler,
-
-    alertCloseAccept,
-    alertCloseDismiss,
-    promptCloseHandler,
 
     addCookie,
     getOneCookie,
     getAllCookie,
     deleteOneCookie,
-    deleteAllCookie,
-
-    fileRegister,
 
     findElementById,
     findElementByName,
-    findElementByXpath,
-
-
-    JqChangeValueByID,
-    JqRemoveAttribute,
-
-    naviGet,
-    naviBack,
-    naviForward,
-    naviRefresh,
-
-    popupClose
 
  } from '../../../modules';
   
@@ -68,52 +43,78 @@ import {
     })
 
     test('쿠키 추가하기', async () => {
-        // 쿠키추가
-        await addCookie(driver,{name : "name", value : "teepo"});
+        try {
+            // 쿠키추가
+            await addCookie(driver,{name : "name", value : "teepo"});
 
-        // 쿠키 가져오기
-        const cookies = (await driver.manage().getCookie('name')).value;
+            // 쿠키 가져오기
+            const cookies = (await driver.manage().getCookie('name')).value;
 
-        // 쿠키 확인
-        expect(cookies).toEqual('teepo');
+            // 쿠키 확인
+            expect(cookies).toEqual('teepo');
+        }
+        catch(Err) {
+            loggerDebug.info(JSON.stringify(Err))
+        }
     })
 
     test('쿠키 하나 가져오기', async () => {
-        // 쿠키 가져오기
-        const result = await getOneCookie(driver,'loggedin');
+        try {
+            // 쿠키 가져오기
+            const result = await getOneCookie(driver,'loggedin');
 
-        // 쿠키 확인
-        expect(result.value).toEqual('Admin');
+            // 쿠키 확인
+            expect(result.value).toEqual('Admin');
+        }
+        catch(Err) {
+            loggerDebug.info(JSON.stringify(Err))
+        }
     })
 
     test('쿠키 전부 가져오기', async () => {
-        // 쿠키 가져오기
-        const result = await getAllCookie(driver);
+        try {
+            // 쿠키 가져오기
+            const result = await getAllCookie(driver);
 
-        // 쿠키 확인
-        expect(result[0].value).toEqual('Admin');
+            // 쿠키 확인
+            expect(result[0].value).toEqual('Admin');
+        }
+        catch(Err) {
+            loggerDebug.info(JSON.stringify(Err))
+        }
     })
 
     test('쿠키 하나 지우기', async () => {
-        // 쿠키 삭제하기
-        await deleteOneCookie(driver,'loggedin');
+        try {
+            // 쿠키 삭제하기
+            await deleteOneCookie(driver,'loggedin');
 
-        // 쿠키 확인
-        const result = await getAllCookie(driver);
+            // 쿠키 확인
+            const result = await getAllCookie(driver);
 
-        // 쿠키가 없어졌는지 확인
-        expect(result.length).toEqual(0);
+            // 쿠키가 없어졌는지 확인
+            expect(result.length).toEqual(0);
+        }
+        catch(Err) {
+            loggerDebug.info(JSON.stringify(Err))
+        }
     })
 
     test('쿠키 전부 지우기', async () => {
-        // 쿠키 삭제하기
-        await deleteOneCookie(driver,'loggedin');
+        try {
+            // 쿠키 삭제하기
+            await deleteOneCookie(driver,'loggedin');
 
-        // 쿠키 확인
-        const result = await getAllCookie(driver);
+            // 쿠키 확인
+            const result = await getAllCookie(driver);
 
-        // 쿠키가 없어졌는지 확인
-        expect(result.length).toEqual(0);
+            // 쿠키가 없어졌는지 확인
+            expect(result.length).toEqual(0);
+        }
+        catch(Err) {
+            loggerDebug.info(JSON.stringify(Err))
+        }
+
     })
 
 })

@@ -7,44 +7,16 @@ import { By, until, WebDriver } from 'selenium-webdriver';
 
 // logger
 import {   
-    loggerInfo,
-    loggerError,
-    loggerHttp,
     loggerDebug,
- } from '../../../config/winston';
-
-// node-json-db
-// import { db } from '../../config/nodejsondb';
+} from '../../../config/winston';
 
 import { 
-    getDriverHandler,
-
-    alertCloseAccept,
-    alertCloseDismiss,
-    promptCloseHandler,
-
-    addCookie,
-    getOneCookie,
-    getAllCookie,
-    deleteOneCookie,
-    deleteAllCookie,
-
     fileRegister,
 
     findElementById,
     findElementByName,
-    findElementByXpath,
 
-
-    JqChangeValueByID,
-    JqRemoveAttribute,
-
-    naviGet,
-    naviBack,
-    naviForward,
-    naviRefresh,
-
-    popupClose
+    getDriverHandler,
 
  } from '../../../modules';
   
@@ -55,14 +27,26 @@ import {
 
     beforeEach(async () => {
         driver = await getDriverHandler();
+        await driver.get('https://testpages.herokuapp.com/styled/file-upload-test.html')
     })
 
     afterEach(async () => {
-        await driver.quit()
+        await driver.close()
     })
 
-    test('', async () => {
+    test('fileRegister', async () => {
+        // 파일 위치 존재 할 때만 테스트 실행
 
+        //     try {
+        //         await fileRegister(driver,By.id('fileinput'),['파일 위치'])
+        //         await (await findElementByName(driver,'fileinput')).click()
+        //         var text = await (await findElementById(driver,'uploadedfilename')).getText()
+        //         expect(text).toEqual('image.jpg')
+        //     }
+        //     catch(Err) {
+        //         loggerDebug.info(JSON.stringify(Err))
+        //     }
+    expect(1).toEqual(1);
     })
 
 })

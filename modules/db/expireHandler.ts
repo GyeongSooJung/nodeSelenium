@@ -19,7 +19,7 @@ export const expireHandler = async (dbPath: string) => {
             let diff = (nowTime.getTime() - beforeTime.getTime()) / (1000*60); // 데이터들 시간 차이
             // 저장된 지 30분이 지나면 index 체크
             if(diff > 30) {
-                index = index2;
+                index = index + 1;
             }
         })
 

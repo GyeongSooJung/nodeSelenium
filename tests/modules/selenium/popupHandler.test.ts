@@ -7,42 +7,15 @@ import { By, until, WebDriver } from 'selenium-webdriver';
 
 // logger
 import {   
-    loggerInfo,
-    loggerError,
-    loggerHttp,
     loggerDebug,
  } from '../../../config/winston';
-
-// node-json-db
-// import { db } from '../../config/nodejsondb';
 
 import { 
     getDriverHandler,
 
-    alertCloseAccept,
-    alertCloseDismiss,
-    promptCloseHandler,
-
-    addCookie,
-    getOneCookie,
-    getAllCookie,
-    deleteOneCookie,
-    deleteAllCookie,
-
-    fileRegister,
-
     findElementById,
-    findElementByName,
-    findElementByXpath,
-
-
-    JqChangeValueByID,
-    JqRemoveAttribute,
 
     naviGet,
-    naviBack,
-    naviForward,
-    naviRefresh,
 
     popupClose
 
@@ -55,14 +28,23 @@ import {
 
     beforeEach(async () => {
         driver = await getDriverHandler();
+        await naviGet(driver,'https://testpages.herokuapp.com/styled/alerts/alert-test.html');
     })
 
     afterEach(async () => {
         await driver.quit()
     })
 
-    test('', async () => {
-
+    test('popupClose', async () => {
+        try {
+            await (await findElementById(driver,'promptexample')).click();
+            popupClose(driver);
+            let windowNmber = await (await driver.getAllWindowHandles()).length;
+            expect(windowNmber).toEqual(1);
+        }
+        catch (Err) {
+            loggerDebug.info(JSON.stringify(Err))
+        }
     })
 
 })
