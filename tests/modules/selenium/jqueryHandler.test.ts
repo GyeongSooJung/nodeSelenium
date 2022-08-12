@@ -34,7 +34,7 @@ import {
     })
 
     afterEach(async () => {
-        await driver.close()
+        await driver.quit()
     })
 
     test('JqChangeValueByID', async () => {

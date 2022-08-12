@@ -36,7 +36,7 @@ import {
     })
 
     afterAll(async () => {
-        await driver.close()
+        await driver.quit()
     })
 
     test('findElementById', async () => {

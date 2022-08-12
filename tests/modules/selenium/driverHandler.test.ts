@@ -24,7 +24,7 @@ import {
     })
 
     afterEach(async () => {
-        await driver.close()
+        await driver.quit()
     })
 
     test('webdriver가 잘 반환되는지 테스트', async () => {

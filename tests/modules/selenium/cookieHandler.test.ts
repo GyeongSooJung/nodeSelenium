@@ -39,7 +39,7 @@ import {
     },15000)
 
     afterEach(async () => {
-        await driver.close()
+        await driver.quit()
     })
 
     test('쿠키 추가하기', async () => {

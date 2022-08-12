@@ -29,7 +29,7 @@ declare const window: typeof globalThis;
     })
 
     afterEach(async () => {
-        await driver.close()
+        await driver.quit()
     })
 
     test('alert 테스트 ( alert 텍스트가 잘 나오는지 )', async () => {
