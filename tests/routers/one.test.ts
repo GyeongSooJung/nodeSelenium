@@ -19,42 +19,27 @@ import {
 import { 
     getDriverHandler,
 
-    alertCloseAccept,
-    alertCloseDismiss,
-    promptCloseHandler,
-
-    addCookie,
-    getOneCookie,
-    getAllCookie,
-    deleteOneCookie,
-    deleteAllCookie,
-
-    fileRegister,
-
-    findElementById,
-    findElementByName,
-    findElementByXpath,
-
-
-    JqChangeValueByID,
-    JqRemoveAttribute,
-
-    naviGet,
-    naviBack,
-    naviForward,
-    naviRefresh,
-
-    popupClose
+    findElementsById
 
  } from '../../modules';
   
 
  describe('GET /one', () => {
+
     // 웹드라이버 설정
     let driver : WebDriver;
+    let text : string;
 
-    beforeAll(async () => {
+    let url = 'https://www.melon.com/chart/index.htm'
+
+    beforeEach(async () => {
         driver = await getDriverHandler();
+
+        // 브라우저에 접속
+        await driver.get(url);
+
+        // 현재 주소 가져오기
+        text = await driver.getCurrentUrl();
     })
 
     afterAll(async () => {
@@ -63,20 +48,20 @@ import {
 
     test('url 잘 뜨는지 확인', async () => {
         try {
-            // 브라우저에 접속
-            await driver.get('https://typo.tistory.com/');
-
-            // 현재 주소 가져오기
-            const text = await driver.getCurrentUrl();
-
             // test
-            expect(text).toEqual('https://typo.tistory.com/')
+            expect(text).toEqual(url)
         }
         catch(Err) {
             console.log(Err)
             loggerDebug.info(Err)
             throw Error;
         }
+    })
+
+    test('list 잘 가져오는지 테스트', async () => {
+        const result = await findElementsById(driver,'lst50')
+
+        console.log(result)
     })
 
  })

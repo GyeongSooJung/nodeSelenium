@@ -11,6 +11,7 @@ interface LOGSTR {
     method : string;
     query? : Object;
     body? : Object;
+    params? : Object;
 }
 
 export const httpLoggingMiddleware = async (req: Request, res: Response, next: NextFunction) => {
@@ -31,7 +32,7 @@ export const httpLoggingMiddleware = async (req: Request, res: Response, next: N
 
         switch (req.method) {
             case 'GET':
-                logStr.query = req.query;
+                logStr.params = req.params;
                 break;
             case 'POST':
                 logStr.body = req.body;
@@ -49,6 +50,6 @@ export const httpLoggingMiddleware = async (req: Request, res: Response, next: N
     }
     catch (Err) {
         loggerError.info(Err)
-        res.send({ success: false });
+        res.send({ success: false, result : "httpError" });
     }
 }

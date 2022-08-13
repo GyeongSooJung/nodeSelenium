@@ -29,6 +29,7 @@ export const expireHandler = async (dbPath: string) => {
         }
     }
     catch(Err) {
+        console.log("Err, ",Err)
         loggerError.info(JSON.stringify(Err))
     }
 }

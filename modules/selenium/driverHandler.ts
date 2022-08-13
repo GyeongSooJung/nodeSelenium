@@ -1,5 +1,6 @@
 import webdriver, { WebDriver } from 'selenium-webdriver';
 import chrome from 'selenium-webdriver/chrome';
+import firefox from 'selenium-webdriver/firefox'
 
 // new driver 반환 함수
 export const getDriverHandler = async () : Promise<WebDriver> => {

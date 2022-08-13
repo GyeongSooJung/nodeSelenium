@@ -9,14 +9,18 @@ import dotenv from 'dotenv'
 dotenv.config();
 
 // router
-import oneRouter from './routers/one'
+import melonRouter from './routers/melon'
+import genieRouter from './routers/genie'
+import vibeRouter from './routers/vibe'
 
 const app = express();
 
 app.use(bodyParser.json())
 app.use(cookieParser())
 
-app.use('/one',oneRouter);
+app.use('/music-chart/melon',melonRouter);
+app.use('/music-chart/genie',genieRouter);
+app.use('/music-chart/vibe',vibeRouter);
 
 app.listen('8000', () => {
     console.log(`
