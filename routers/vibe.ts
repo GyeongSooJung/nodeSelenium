@@ -113,24 +113,62 @@ router.get('/summary',timeIntervalMiddleware,httpLoggingMiddleware, async functi
 
     let musicSummary : MusicSummary;
     let musicDetail : MusicDetail;
+
+    let result : WebElement[] = []
+
+    let ranking: string = "";
+    let name: string = "";
+    let singer: string = "";
+    let album: string = "";
+
+    let publisher: string = "";
+    let agency: string = "";
     
     try {
         // 브라우저에 접속
         await driver.get('https://vibe.naver.com/chart/total');
 
-        let result : WebElement[] = await findElementsByTagName(driver,'tr');
+        await (await findElementByXpath(driver,'//*[@id="app"]/div[2]/div/div/a[2]')).click();
+
+        // await driver.executeScript("window.scrollTo(0,document.body.scrollHeight)");
+        // await (await findElementByXpath(driver,'//*[@id="content"]/div[5]/a')).click()
+
+        result = await findElementsByTagName(driver,'tr');
+
+        // await driver.executeScript("window.scrollTo(0,0)");
 
         for (var i = 1; i < result.length; i ++) {
-            let ranking = await (await findElementByXpath(driver,`/html/body/div[3]/div[2]/div[1]/div[6]/div/table/tbody/tr[${i}]/td[2]`)).getText();
-            let name = await (await findElementByXpath(driver,`/html/body/div[3]/div[2]/div[1]/div[6]/div/table/tbody/tr[${i}]/td[5]/a[1]`)).getText();
-            let singer = await (await findElementByXpath(driver,`/html/body/div[3]/div[2]/div[1]/div[6]/div/table/tbody/tr[${i}]/td[5]/a[2]`)).getText();
-            let album = await (await findElementByXpath(driver,`/html/body/div[3]/div[2]/div[1]/div[6]/div/table/tbody/tr[${i}]/td[5]/a[3]`)).getText();
+
+            // 스크롤 내리기 (tr의 height 만큼)
+            if(i % 8 === 0) {
+                await driver.executeScript("window.scrollBy(0,"+String(66 * 8)+")");
+            }
+
+            ranking = await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[3]/span`)).getText();
+            name = await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[4]/div[1]/span/a`)).getText();
+            singer = await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[5]/span/span/span/a/span`)).getText();
+            album = await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[6]/a`)).getText();
             
-            await (await findElementByXpath(driver,`/html/body/div[3]/div[2]/div[1]/div[6]/div/table/tbody/tr[${i}]/td[5]/a[3]`)).click();
+            await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[6]/a`)).click();
 
-            let publisher = await (await findElementByXpath(driver,`/html/body/div[3]/div[2]/div/div/div[2]/div[2]/ul/li[3]/span[2]`)).getText();
-            let agency = await (await findElementByXpath(driver,`/html/body/div[3]/div[2]/div/div/div[2]/div[2]/ul/li[4]/span[2]`)).getText();
+            // 팝업 닫기(처음에만)
+            if (i === 1) {
+                await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[1]/div[1]/div[2]/div[2]/div/div[1]/span[3]/a/span/a`)).click();
+            }
 
+            // 더보기 버튼 나올 때 까지 기다림
+            await sleep(1000)
+
+            // 더보기 클릭 (발매사, 기획사가 없는 노래도 있음)
+            try{
+                await (await findElementByXpath(driver,`//*[@id="content"]/div[1]/div[1]/div[2]/div[1]/div[2]/div/a`)).click();
+
+                publisher = await (await findElementByXpath(driver,`/html/body/div/div[2]/div/div/div[2]/div/table/tbody/tr[1]/td`)).getText();
+                agency = await (await findElementByXpath(driver,`/html/body/div/div[2]/div/div/div[2]/div/table/tbody/tr[2]/td`)).getText();
+            } catch(Err) {
+
+            }
+            
             await naviBack(driver);
 
             musicSummary = {
@@ -203,8 +241,15 @@ router.get('/songs',timeIntervalMiddleware,httpLoggingMiddleware, async function
     let musicSummary : MusicSummary;
     let musicDetail : MusicDetail;
 
-    let publisher = "";
-    let agency = "";
+    let result : WebElement[] = []
+
+    let ranking: string = "";
+    let name: string = "";
+    let singer: string = "";
+    let album: string = "";
+
+    let publisher: string = "";
+    let agency: string = "";
     
     try {
         // 브라우저에 접속
@@ -213,13 +258,9 @@ router.get('/songs',timeIntervalMiddleware,httpLoggingMiddleware, async function
         await (await findElementByXpath(driver,'//*[@id="app"]/div[2]/div/div/a[2]')).click();
 
         // await driver.executeScript("window.scrollTo(0,document.body.scrollHeight)");
-
         // await (await findElementByXpath(driver,'//*[@id="content"]/div[5]/a')).click()
 
-        let result : WebElement[] = await findElementsByTagName(driver,'tr');
-
-        // 스크롤을 위한 클래스
-        // let touch : TouchSequence = new TouchSequence(driver);
+        result = await findElementsByTagName(driver,'tr');
 
         // await driver.executeScript("window.scrollTo(0,0)");
 
@@ -229,15 +270,11 @@ router.get('/songs',timeIntervalMiddleware,httpLoggingMiddleware, async function
             if(i % 8 === 0) {
                 await driver.executeScript("window.scrollBy(0,"+String(66 * 8)+")");
             }
-            // if(i % 8 === 0) {
-            //     touch.scroll({x: 0, y: 66 * 8})
-            // }
-            
 
-            let ranking = await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[3]/span`)).getText();
-            let name = await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[4]/div[1]/span/a`)).getText();
-            let singer = await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[5]/span/span/span/a/span`)).getText();
-            let album = await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[6]/a`)).getText();
+            ranking = await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[3]/span`)).getText();
+            name = await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[4]/div[1]/span/a`)).getText();
+            singer = await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[5]/span/span/span/a/span`)).getText();
+            album = await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[6]/a`)).getText();
             
             await (await findElementByXpath(driver,`/html/body/div/div/div/div[3]/div/div[4]/div[2]/div/table/tbody/tr[${i}]/td[6]/a`)).click();
 
@@ -247,7 +284,7 @@ router.get('/songs',timeIntervalMiddleware,httpLoggingMiddleware, async function
             }
 
             // 더보기 버튼 나올 때 까지 기다림
-            await sleep(500)
+            await sleep(1000)
 
             // 더보기 클릭 (발매사, 기획사가 없는 노래도 있음)
             try{
@@ -279,14 +316,6 @@ router.get('/songs',timeIntervalMiddleware,httpLoggingMiddleware, async function
                 musicSummary : musicSummary,
                 musicDetail: musicDetail
             });
-            console.log({
-                id: (new Date).getTime(),
-                musicSummary : musicSummary,
-                musicDetail: musicDetail
-            })
-
-            await sleep(1000)
-
         }
 
         // 저장 데이터

@@ -103,30 +103,39 @@ router.get('/summary',timeIntervalMiddleware,httpLoggingMiddleware, async functi
     let driver = await getDriverHandler();
 
     let startTime = new Date();
+
+    let AllArray  : Array<{}> = [];
+    let summaryArray : Array<{}> = [];
+
+    let musicSummary : MusicSummary;
+    let musicDetail : MusicDetail;
+
+    let result : WebElement[] = []
+
+    let ranking: string = "";
+    let name: string = "";
+    let singer: string = "";
+    let album: string = "";
+
+    let publisher: string = "";
+    let agency: string = "";
     
     try {
         // 브라우저에 접속
         await driver.get('https://www.melon.com/chart/index.htm')
 
-        const result : WebElement[] = await findElementsById(driver,'lst50')
-
-
-        let AllArray : Array<{}> = [];
-        let summaryArray : Array<{}> = [];
-
-        let musicSummary : MusicSummary;
-        let musicDetail : MusicDetail;
+        result = await findElementsById(driver,'lst50')
 
         for (var i = 1; i < result.length; i ++) {
-            let ranking = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[2]/div/span[1]`)).getText();
-            let name = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[6]/div/div/div[1]/span/a`)).getText();
-            let singer = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[6]/div/div/div[2]/a`)).getText();
-            let album = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[7]/div/div/div/a`)).getText();
+            ranking = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[2]/div/span[1]`)).getText();
+            name = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[6]/div/div/div[1]/span/a`)).getText();
+            singer = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[6]/div/div/div[2]/a`)).getText();
+            album = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[7]/div/div/div/a`)).getText();
 
             await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[7]/div/div/div/a`)).click();
 
-            let publisher = await (await findElementByXpath(driver,`/html/body/div[1]/div[3]/div/div/div[2]/div/div[2]/div[2]/dl/dd[3]`)).getText();
-            let agency = await (await findElementByXpath(driver,`/html/body/div[1]/div[3]/div/div/div[2]/div/div[2]/div[2]/dl/dd[4]`)).getText();
+            publisher = await (await findElementByXpath(driver,`/html/body/div[1]/div[3]/div/div/div[2]/div/div[2]/div[2]/dl/dd[3]`)).getText();
+            agency = await (await findElementByXpath(driver,`/html/body/div[1]/div[3]/div/div/div[2]/div/div[2]/div[2]/dl/dd[4]`)).getText();
 
             await naviBack(driver);
             
@@ -194,29 +203,38 @@ router.get('/songs',timeIntervalMiddleware,httpLoggingMiddleware, async function
     let driver = await getDriverHandler();
 
     let startTime = new Date();
+
+    let array : Array<{}> = [];
+
+    let musicSummary : MusicSummary;
+    let musicDetail : MusicDetail;
+
+    let result : WebElement[] = []
+
+    let ranking: string = "";
+    let name: string = "";
+    let singer: string = "";
+    let album: string = "";
+
+    let publisher: string = "";
+    let agency: string = "";
     
     try {
         // 브라우저에 접속
         await driver.get('https://www.melon.com/chart/index.htm')
 
-        const result : WebElement[] = await findElementsById(driver,'lst50')
-
-
-        let array  : Array<{}> = [];
-
-        let musicSummary : MusicSummary;
-        let musicDetail : MusicDetail;
+        result = await findElementsById(driver,'lst50')
 
         for (var i = 1; i < result.length; i ++) {
-            let ranking = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[2]/div/span[1]`)).getText();
-            let name = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[6]/div/div/div[1]/span/a`)).getText();
-            let singer = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[6]/div/div/div[2]/a`)).getText();
-            let album = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[7]/div/div/div/a`)).getText();
+            ranking = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[2]/div/span[1]`)).getText();
+            name = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[6]/div/div/div[1]/span/a`)).getText();
+            singer = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[6]/div/div/div[2]/a`)).getText();
+            album = await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[7]/div/div/div/a`)).getText();
             
             await (await findElementByXpath(driver,`/html/body/div/div[3]/div/div/div[3]/form/div/table/tbody/tr[${i}]/td[7]/div/div/div/a`)).click();
 
-            let publisher = await (await findElementByXpath(driver,`/html/body/div[1]/div[3]/div/div/div[2]/div/div[2]/div[2]/dl/dd[3]`)).getText();
-            let agency = await (await findElementByXpath(driver,`/html/body/div[1]/div[3]/div/div/div[2]/div/div[2]/div[2]/dl/dd[4]`)).getText();
+            publisher = await (await findElementByXpath(driver,`/html/body/div[1]/div[3]/div/div/div[2]/div/div[2]/div[2]/dl/dd[3]`)).getText();
+            agency = await (await findElementByXpath(driver,`/html/body/div[1]/div[3]/div/div/div[2]/div/div[2]/div[2]/dl/dd[4]`)).getText();
 
             await naviBack(driver);
 
