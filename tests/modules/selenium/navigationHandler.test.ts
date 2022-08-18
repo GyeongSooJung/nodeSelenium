@@ -72,7 +72,6 @@ import {
         catch(Err) {
             loggerDebug.info(JSON.stringify(Err))
         }
-
     })
 
     test('naviRefresh', async () => {
